@@ -28,18 +28,21 @@ public class Hero {
 			nInitiative = (int)(Math.random()*20)+20;
 			nAttackRank = (int)(Math.random()*35)+95;
 			nDefenseRank = (int)(Math.random()*9)+10;
+			nInitialHitPoints = nHitPoints;
 			break;
 		case Fighter:
 			nHitPoints = (int)(Math.random()*15)+71;
 			nInitiative = (int)(Math.random()*10)+50;
 			nAttackRank = (int)(Math.random()*15)+30;
 			nDefenseRank = (int)(Math.random()*9)+20;
+			nInitialHitPoints = nHitPoints;
 			break;
 		case Thief:
 			nHitPoints = (int)(Math.random()*15)+86;
 			nInitiative = (int)(Math.random()*15)+25;
 			nAttackRank = (int)(Math.random()*15)+40;
 			nDefenseRank = (int)(Math.random()*6)+29;
+			nInitialHitPoints = nHitPoints;
 			break;
 		}
 	}
@@ -67,7 +70,7 @@ public class Hero {
 	}
 	public void ressurect()
 	{
-		setHit(nInitialHitPoints);
+		nHitPoints = nInitialHitPoints;
 	}
 	public int getAttack()
 	{
@@ -87,7 +90,7 @@ public class Hero {
 	}
 	protected void setHit (int nVal)
 	{
-		nHitPoints += nVal  ;
+		nHitPoints += nVal;
 	}
 	protected void setInitiative(int nVal)
 	{

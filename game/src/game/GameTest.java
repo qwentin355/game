@@ -121,12 +121,17 @@ public class GameTest
 					}
 				}
 				if(obHero1.isDead())
-				{
+				{					
 					System.out.println(obHero2.toString());
+					obHero1.ressurect();
+					obHero2.ressurect();
 				}
 				else
 				{
 					System.out.println(obHero1.toString());
+					obHero1.ressurect();
+					obHero2.ressurect();
+					
 				}
 	}
 }
