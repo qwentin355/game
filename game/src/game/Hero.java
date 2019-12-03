@@ -1,6 +1,14 @@
 package game;
 
-	enum HeroType {Mage, Thief, Fighter}
+enum HeroType {
+	Mage, Thief, Fighter;
+
+	private static HeroType[] list = HeroType.values();
+
+	public static HeroType getHero(int i) {
+		return list[i];
+	}
+}
 
 public class Hero {
 	private int nAttackRank;
@@ -8,30 +16,30 @@ public class Hero {
 	private int nHitPoints;
 	private int nInitiative;
 	private int nInitialHitPoints;
-	
+
 	public HeroType nType;
-	
+
 	public Hero (HeroType nType)
 	{
 		this.nType = nType;
 		switch (nType) {
 		case Mage:
-			this.nHitPoints = (int)(Math.random()*30)+51;
-			this.nInitiative = (int)(Math.random()*20)+20;
-			this.nAttackRank = (int)(Math.random()*35)+95;
-			this.nDefenseRank = (int)(Math.random()*9)+10;
+			nHitPoints = (int)(Math.random()*30)+51;
+			nInitiative = (int)(Math.random()*20)+20;
+			nAttackRank = (int)(Math.random()*35)+95;
+			nDefenseRank = (int)(Math.random()*9)+10;
 			break;
 		case Fighter:
-			this.nHitPoints = (int)(Math.random()*15)+71;
-			this.nInitiative = (int)(Math.random()*10)+50;
-			this.nAttackRank = (int)(Math.random()*15)+30;
-			this.nDefenseRank = (int)(Math.random()*9)+20;
+			nHitPoints = (int)(Math.random()*15)+71;
+			nInitiative = (int)(Math.random()*10)+50;
+			nAttackRank = (int)(Math.random()*15)+30;
+			nDefenseRank = (int)(Math.random()*9)+20;
 			break;
 		case Thief:
-			this.nHitPoints = (int)(Math.random()*15)+86;
-			this.nInitiative = (int)(Math.random()*15)+25;
-			this.nAttackRank = (int)(Math.random()*15)+40;
-			this.nDefenseRank = (int)(Math.random()*6)+29;
+			nHitPoints = (int)(Math.random()*15)+86;
+			nInitiative = (int)(Math.random()*15)+25;
+			nAttackRank = (int)(Math.random()*15)+40;
+			nDefenseRank = (int)(Math.random()*6)+29;
 			break;
 		}
 	}
@@ -46,7 +54,7 @@ public class Hero {
 		case Thief:
 			return 3;
 		}
-		return nAttackRank;
+		return 1;
 	}
 	public boolean isDead()
 	{
@@ -79,7 +87,7 @@ public class Hero {
 	}
 	protected void setHit (int nVal)
 	{
-		nHitPoints += nHitPoints * (nVal/100);
+		nHitPoints += nVal;
 	}
 	protected void setInitiative(int nVal)
 	{
@@ -93,85 +101,98 @@ public class Hero {
 	{
 		nDefenseRank += nDefenseRank * (nVal/100);
 	}
-	public void defend(Hero obOther)
-	{ 
+	public void defend(Hero obOther) 
+	{
+		if(obOther.getAttack()>this.getDefense())
+		{
+			this.setHit(-(obOther.getAttack()-this.getDefense()));
+		}
+		else
+		{	
+			this.setHit(-1);
+		}
 		
+	}
+
+
+	public String toString()
+	{
+		return String.format("\nClass %s \nHitpoints %d\nAttack %d \nDefence %d\ninitiative %d",nType.toString(),getHit(),getAttack(),getDefense(),getInitiative());
+	}
+}
+
+class Elf extends Hero{
+
+	String sName;
+
+	public Elf(String sName, HeroType nType)
+	{
+		super(nType);
+
+		this.sName = sName;
+
+		super.setHit(-10);
+		super.setDefense(5);
+		super.setAttack(-5);
+		super.setInitiative(5);
+
 	}
 	public String toString()
 	{
-		return String.format("Class %s \nHitpoints %d\nAttack %d \nDefence %d\ninitiative %d",nType.toString(),getHit(),getAttack(),getDefense(),getInitiative());
+		return sName + super.toString();
 	}
 }
-	
-	class Elf extends Hero{
-		String sName;
-		
-		public Elf(String sName, HeroType nType)
-		{
-			super(nType);
-			
-			this.sName = sName;
-			
-			super.setHit(-10);
-			super.setDefense(5);
-			super.setAttack(-5);
-			super.setInitiative(5);
-		}
-		public String toString()
-		{
-			return super.toString();
-		}
-	}
-	class Dwarf extends Hero {
-		String sName;
-		
-		public Dwarf(String sName, HeroType nType)
-		{
-			super(nType);
+class Dwarf extends Hero {
+	String sName;
 
-			super.setHit(10);
-			super.setDefense(-15);
-			super.setAttack(10);
-			super.setInitiative(5);
-		}
-		public String toString()
-		{
-			return this.nType.toString()+"Dwarf";
-		}
-	}
-	class Hobbit extends Hero {
-		String sName;
-		
-		public Hobbit(String sName, HeroType nType)
-		{
-			super(nType);
+	public Dwarf(String sName, HeroType nType)
+	{
+		super(nType);
+		this.sName = sName;
 
-			super.setHit(-15);
-			super.setDefense(20);
-			super.setAttack(-20);
-			super.setInitiative(15);
-		}
-		public String toString()
-		{
-			return this.nType.toString()+"Hobbit";
-
-		}
+		super.setHit(10);
+		super.setDefense(-15);
+		super.setAttack(10);
+		super.setInitiative(5);
 	}
-	class Human extends Hero {
-		String sName;
-		public Human(String sName, HeroType nType)
-		{
-			super(nType);
-			super.setHit(0);
-			super.setDefense(0);
-			super.setAttack(0);
-			super.setInitiative(0);
-		}
-		public String toString()
-		{
-			return this.nType.toString()+"Human";
-
-			
-		}
+	public String toString()
+	{
+		return sName + super.toString();
 	}
+}
+class Hobbit extends Hero {
+	String sName;
+
+	public Hobbit(String sName, HeroType nType)
+	{
+		super(nType);
+		this.sName = sName;
+
+		super.setHit(-15);
+		super.setDefense(20);
+		super.setAttack(-20);
+		super.setInitiative(15);
+	}
+	public String toString()
+	{
+		return sName + super.toString();
+	}
+}
+class Human extends Hero {
+	String sName;
+	public Human(String sName, HeroType nType)
+	{
+		super(nType);
+		this.sName = sName;
+
+		super.setHit(0);
+		super.setDefense(0);
+		super.setAttack(0);
+		super.setInitiative(0);
+	}
+	public String toString()
+	{
+		return sName + super.toString();
+	}
+}
 
