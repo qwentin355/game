@@ -87,11 +87,11 @@ public class Hero {
 	}
 	protected void setHit (int nVal)
 	{
-		nHitPoints += nVal;
+		nHitPoints += nVal  ;
 	}
 	protected void setInitiative(int nVal)
 	{
-		nInitiative += nInitiative *(nVal/100);
+		nInitiative += nInitiative * (nVal/100);
 	}
 	protected void setAttack(int nVal)
 	{
@@ -131,7 +131,7 @@ class Elf extends Hero{
 
 		this.sName = sName;
 
-		super.setHit(-10);
+		super.setHit((int)-10/100);
 		super.setDefense(5);
 		super.setAttack(-5);
 		super.setInitiative(5);
@@ -150,7 +150,7 @@ class Dwarf extends Hero {
 		super(nType);
 		this.sName = sName;
 
-		super.setHit(10);
+		super.setHit((int)10/100);
 		super.setDefense(-15);
 		super.setAttack(10);
 		super.setInitiative(5);
@@ -168,7 +168,7 @@ class Hobbit extends Hero {
 		super(nType);
 		this.sName = sName;
 
-		super.setHit(-15);
+		super.setHit((int)-15/100);
 		super.setDefense(20);
 		super.setAttack(-20);
 		super.setInitiative(15);
